@@ -1,16 +1,14 @@
+const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 module.exports = (client, message) => {
-  const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const Discord = require("discord.js");
   var randomSentence = require("random-sentence");
   var Sentencer = require("sentencer");
-  const prefix = "g!";
-  const prefixRegex = new RegExp(
-    `^(<@!?${client.user.id}>|${escapeRegex(prefix)})\\s*`
-  );
-  if (!prefixRegex.test(message.content)) return;
-  const [, matchedPrefix] = message.content.match(prefixRegex);
-  const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
+    const prefix = 'g!';
+    const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(prefix)})\\s*`);
+    if (!prefixRegex.test(message.content)) return;
+    const [, matchedPrefix] = message.content.match(prefixRegex);
+    const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
   console.log(message.content + " -" + message.author);
   const Help = new Discord.RichEmbed()
     .setColor("#0099ff")
@@ -30,12 +28,8 @@ module.exports = (client, message) => {
       "https://uploads.scratch.mit.edu/users/avatars/14542217.png"
     );
   if (
-    message.content.startsWith(prefix) &&
     message.author != "<@777212456170422272>"
   ) {
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
-    console.log(args[2]);
     if (command === "say") {
       if (args) {
         message.channel.send(
@@ -52,7 +46,7 @@ module.exports = (client, message) => {
         }ms. API Latency is ${Math.round(client.ws.ping)}ms`
       );
     } else if (command === "madlibs") {
-      message.channel.send(Sentencer.make(message.content.slice(9)));
+      message.channel.send(Sentencer.make(message.content.replace(matchedPrefix, '').replace(command, '')));
     } else if (command === "holiday") {
       message.channel.send(":santa:  Happy holidays, " + message.author);
     } else if (command === "gtg") {
@@ -62,4 +56,4 @@ module.exports = (client, message) => {
       message.channel.send("Sadly, that's *not* a command.");
     }
   }
-};
+}
