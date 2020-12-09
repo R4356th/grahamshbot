@@ -29,7 +29,9 @@ const Help = new Discord.RichEmbed()
       message.channel.send(`🏓 Latency is ${Date.now() - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
     } else if (command === 'madlibs'){
       message.channel.send(Sentencer.make(message.content.slice(9)));
-    }
+    } else if (command === 'holiday'){
+    message.channel.send(':santa:  Happy holidays, ' + message.author);
+  }
      else {
       message.channel.send("Sadly, that's *not* a command.")
     }
