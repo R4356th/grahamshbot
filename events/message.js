@@ -3,7 +3,7 @@ module.exports = (client, message) => {
   var randomSentence = require('random-sentence');
   var Sentencer = require('sentencer');
   const prefix = 'g!'
-  //console.log(message.content + ' -' + message.author.username)
+  console.log(message.content + ' -' + message.author)
 const Help = new Discord.RichEmbed()
 	.setColor('#0099ff')
 	.setTitle('GrahamSH-Bot Help')
@@ -14,7 +14,7 @@ const Help = new Discord.RichEmbed()
 	.setImage('https://uploads.scratch.mit.edu/users/avatars/14542217.png')
 	.setTimestamp()
 	.setFooter('Some footer text here', 'https://uploads.scratch.mit.edu/users/avatars/14542217.png');
-  if (message.content.startsWith(prefix)) {
+  if (message.content.startsWith(prefix) && message.author != '<@777212456170422272>') {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
     console.log(args[2])
