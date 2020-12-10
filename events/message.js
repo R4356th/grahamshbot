@@ -7,7 +7,7 @@ module.exports = (client, message) => {
   var Sentencer = require("sentencer");
   Sentencer.configure({
     actions: {
-      verb: function () {
+      verb: function() {
         return verbs[verbs.length * Math.random() | 0]
       },
     },
@@ -44,7 +44,7 @@ module.exports = (client, message) => {
       if (args) {
         message.channel.send(
           "Hahahaha! I'll never say what you want! " +
-            randomSentence({ min: 4, max: 9 })
+          randomSentence({ min: 4, max: 9 })
         );
       }
     } else if (command === "help") {
@@ -52,7 +52,7 @@ module.exports = (client, message) => {
     } else if (command === "ping") {
       message.channel.send(
         `🏓 Latency is ${
-          Date.now() - message.createdTimestamp
+        Date.now() - message.createdTimestamp
         }ms. API Latency is ${Math.round(client.ws.ping)}ms`
       );
     } else if (command === "madlibs") {
@@ -65,6 +65,8 @@ module.exports = (client, message) => {
       message.channel.send(":santa:  Happy holidays, " + message.author);
     } else if (command === "gtg") {
       message.channel.send(message.author + " has to go!");
+    } else if (command === "verbs") {
+      message.channel.send(Sentencer.make('{{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}, {{ verb }}'));
     } else {
       message.channel.send("Sadly, that's *not* a command.");
     }
