@@ -294,6 +294,7 @@ You now own :money_with_wings: ${output.balance}`);
                 `${(users[2] && users[2].balance) || "None"}`
               );
           });
+          message.channel.send({ embed })
       }
     } else if (command === "transfer") {
       var user = message.mentions.users.first();
