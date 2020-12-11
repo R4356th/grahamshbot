@@ -111,7 +111,7 @@ module.exports = async (client, message) => {
       );
     } else if (command === "rank") {
       return message.reply(
-        `You currently have ${score.points} points and are level ${score.level}!`
+        `You currently have ${score.points} XP and are level ${score.level}!`
       );
     } else if (command === "give") {
       // Limited to guild owner - adjust to your own preference!
@@ -128,7 +128,7 @@ module.exports = async (client, message) => {
 
       const pointsToAdd = parseInt(args[1], 10);
       if (!pointsToAdd)
-        return message.reply("You didn't tell me how many points to give...");
+        return message.reply("You didn't tell me how many XP to give...");
 
       // Get their current points.
       let userscore = client.getScore.get(user.id, message.guild.id);
@@ -152,7 +152,7 @@ module.exports = async (client, message) => {
       client.setScore.run(userscore);
 
       return message.channel.send(
-        `${user.tag} has received ${pointsToAdd} points and now stands at ${userscore.points} points.`
+        `${user.tag} has received ${pointsToAdd} XP and now stands at ${userscore.points} XP.`
       );
     } else if (command === "leaderboard") {
       const top10 = sql
@@ -165,14 +165,14 @@ module.exports = async (client, message) => {
       const embed = new Discord.RichEmbed()
         .setTitle("Leaderboard")
         .setAuthor(client.user.username, message.guild.iconURL)
-        .setDescription("Our top 10 points leaders!")
+        .setDescription("Our top 10 XP leaders!")
         .setColor(0x00ae86);
       async function showLeader() {
         for (const data of top10) {
           user = await client.fetchUser(data.user);
           embed.addField(
             `${user.username}`,
-            `${data.points} points (level ${data.level})`
+            `${data.points} XP (level ${data.level})`
           );
         }
       }
