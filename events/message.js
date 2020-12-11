@@ -189,7 +189,7 @@ module.exports = async (client, message) => {
         );
       } else {
         message.channel.send(
-          `Sorry, you already claimed your daily coins!\nBut no worries, over ${output.timetowait} you can daily again!`
+          `Sorry, you already claimed your daily coins!\nBut no worries, in ${output.timetowait} you can get your daily prize again!`
         );
       }
     } else if (command === "coinflip") {
@@ -265,7 +265,7 @@ You now own :money_with_wings: ${output.balance}`);
             if (users[2])
               var thirdplace = await client.fetchUser(users[2].userid); //Searches for the user object in discord for third place
 
-            message.channel.send(`My leaderboard:
+           /* message.channel.send(`My leaderboard:
  
 1 - ${(firstplace && firstplace.tag) || "Nobody Yet"} : ${
               (users[0] && users[0].balance) || "None"
@@ -275,7 +275,14 @@ You now own :money_with_wings: ${output.balance}`);
             }
 3 - ${(thirdplace && thirdplace.tag) || "Nobody Yet"} : ${
               (users[2] && users[2].balance) || "None"
-            }`);
+            }`);*/
+         const embed = new Discord.RichEmbed()
+        .setTitle("Economy")
+        .setAuthor(client.user.username, message.guild.iconURL)
+        .setDescription("Our economy!")
+        .setColor(0x00ae86)
+        .addField({`${firstplace && firstplace.tag || "Nobody Yet"}`, `${users[1] && users[1].balance || "None"}`});
+
           });
       }
     } else if (command === "transfer") {
