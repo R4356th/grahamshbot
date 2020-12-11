@@ -265,10 +265,10 @@ You now own :money_with_wings: ${output.balance}`);
             if (users[2])
               var thirdplace = await client.fetchUser(users[2].userid); //Searches for the user object in discord for third place
 
-            const economy = new Discord.RichEmbed()
+            const embed = new Discord.RichEmbed()
               .setTitle("Economy")
               .setAuthor(client.user.username, message.guild.iconURL)
-              .setDescription("Our economy!")
+              .setDescription("The top 3 people in our economy!")
               .setColor(0x00ae86)
               .addField(
                 `${(firstplace && firstplace.tag) || "Nobody Yet"}`,
@@ -281,8 +281,8 @@ You now own :money_with_wings: ${output.balance}`);
               .addField(
                 `${(thirdplace && thirdplace.tag) || "Nobody Yet"}`,
                 `${(users[2] && users[2].balance) || "None"}`
-              );
-              message.channel.send({ economy });
+              )
+            return message.channel.send({ embed });
           });
         
       }
@@ -325,7 +325,9 @@ You now own :money_with_wings: ${output.balance}`);
         .catch(console.error);
       message.channel.send(gamble.grid); //Grid checks for a 100% match vertical or horizontal.
       message.reply(`You ${gamble.output}! New balance: ${gamble.newbalance}`);
-    } else {
+    } else if (command === "brb") {
+      message.channel.send(message.author + " will be right back!");
+    }else {
       message.channel.send("Sadly, that's *not* a command.");
     }
   }
