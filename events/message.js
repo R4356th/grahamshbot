@@ -265,7 +265,7 @@ You now own :money_with_wings: ${output.balance}`);
             if (users[2])
               var thirdplace = await client.fetchUser(users[2].userid); //Searches for the user object in discord for third place
 
-            const embed = new Discord.RichEmbed()
+            const economy = new Discord.RichEmbed()
               .setTitle("Economy")
               .setAuthor(client.user.username, message.guild.iconURL)
               .setDescription("Our economy!")
@@ -282,8 +282,9 @@ You now own :money_with_wings: ${output.balance}`);
                 `${(thirdplace && thirdplace.tag) || "Nobody Yet"}`,
                 `${(users[2] && users[2].balance) || "None"}`
               );
+              message.channel.send({ economy });
           });
-        return message.channel.send({ embed });
+        
       }
     } else if (command === "transfer") {
       var user = message.mentions.users.first();
