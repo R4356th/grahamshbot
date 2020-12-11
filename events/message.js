@@ -265,7 +265,7 @@ You now own :money_with_wings: ${output.balance}`);
             if (users[2])
               var thirdplace = await client.fetchUser(users[2].userid); //Searches for the user object in discord for third place
 
-           /* message.channel.send(`My leaderboard:
+            /* message.channel.send(`My leaderboard:
  
 1 - ${(firstplace && firstplace.tag) || "Nobody Yet"} : ${
               (users[0] && users[0].balance) || "None"
@@ -276,13 +276,23 @@ You now own :money_with_wings: ${output.balance}`);
 3 - ${(thirdplace && thirdplace.tag) || "Nobody Yet"} : ${
               (users[2] && users[2].balance) || "None"
             }`);*/
-         const embed = new Discord.RichEmbed()
-        .setTitle("Economy")
-        .setAuthor(client.user.username, message.guild.iconURL)
-        .setDescription("Our economy!")
-        .setColor(0x00ae86)
-        .addField({`${firstplace && firstplace.tag || "Nobody Yet"}`, `${users[1] && users[1].balance || "None"}`});
-
+            const embed = new Discord.RichEmbed()
+              .setTitle("Economy")
+              .setAuthor(client.user.username, message.guild.iconURL)
+              .setDescription("Our economy!")
+              .setColor(0x00ae86)
+              .addField(
+                `${(firstplace && firstplace.tag) || "Nobody Yet"}`,
+                `${(users[0] && users[0].balance) || "None"}`
+              )
+              .addField(
+                `${(secondplace && secondplace.tag) || "Nobody Yet"}`,
+                `${(users[1] && users[1].balance) || "None"}`
+              )
+              .addField(
+                `${(thirdplace && thirdplace.tag) || "Nobody Yet"}`,
+                `${(users[2] && users[2].balance) || "None"}`
+              );
           });
       }
     } else if (command === "transfer") {
@@ -319,7 +329,7 @@ You now own :money_with_wings: ${output.balance}`);
         .Slots(message.author.id, amount, {
           width: 3,
           height: 1,
-          emojis: ['7️⃣', '*️⃣', '5️⃣', '#️⃣', '⏺️', '🔃']
+          emojis: ["7️⃣", "*️⃣", "5️⃣", "#️⃣", "⏺️", "🔃"],
         })
         .catch(console.error);
       message.channel.send(gamble.grid); //Grid checks for a 100% match vertical or horizontal.
