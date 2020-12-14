@@ -300,10 +300,9 @@ You now own :money_with_wings: ${output.balance}`);
               .addField(
                 `${(thirdplace && thirdplace.tag) || "Nobody Yet"}`,
                 `${(users[2] && users[2].balance) || "None"}`
-              )
+              );
             return message.channel.send({ embed });
           });
-        
       }
     } else if (command === "transfer") {
       var user = message.mentions.users.first();
@@ -346,7 +345,7 @@ You now own :money_with_wings: ${output.balance}`);
       message.reply(`You ${gamble.output}! New balance: ${gamble.newbalance}`);
     } else if (command === "brb") {
       message.channel.send(message.author + " will be right back!");
-    }else {
+    } else {
       message.channel.send("Sadly, that's *not* a command.");
     }
   }
