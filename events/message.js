@@ -8,6 +8,9 @@ module.exports = async (client, message) => {
   const SQLite = require("better-sqlite3");
   const sql = new SQLite("./scores.sqlite");
   const eco = require("discord-economy");
+  const canvas = require('discord-canvas')
+  process.env.FONTCONFIG_PATH='./fonts';
+
   const prefix = "g!";
   const prefixRegex = new RegExp(
     `^(<@!?${client.user.id}>|${escapeRegex(prefix)})\\s*`
@@ -110,9 +113,25 @@ module.exports = async (client, message) => {
         )
       );
     } else if (command === "rank") {
-      return message.reply(
-        `You currently have ${score.points} XP and are level ${score.level}!`
-      );
+      const image = await new canvas.RankCard()
+      .setAvatar("xixi52")
+      .setXP("current", 500)
+      .setXP("needed", 1000)
+      .setLevel(7)
+      .setRank(2)
+      .setReputation(450)
+      .setRankName("professional")
+      .setUsername(message.author.usermane)
+      .setBadge(1, "gold")
+      .setBadge(3, "diamond")
+      .setBadge(5, "silver")
+      .setBadge(6, "bronze")
+      .setBackground("https://www.site.com/background.jpg")
+      .toAttachment();
+    const attachment = new Discord.MessageAttachment(image.toBuffer(), "rank-card.png");
+ 
+    return message.channel.send(attachment);
+
     } else if (command === "give") {
       // Limited to guild owner - adjust to your own preference!
       console.log(message.author.id);
