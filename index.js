@@ -38,6 +38,23 @@ app.get("/keepalive", (request, response) => {
   console.log("Kept alive!");
   response.send("Alive");
 });
+app.get("/users/:userid", async function (req, res, next) {
+  userid = req.params.userid; // returns user id
+  username = client.users.find((u) => u.id === userid).username; // returns username  this is working
+  console.log(username);
+  user = req.params.user;
+  link = `/picture/${userid}`;
+
+  ejs.renderFile(
+    __dirname + "/public/index.ejs",
+    { user, link },
+    (err, str) => {
+      if (err) console.log(err);
+      res.send(str);
+    }
+  );
+});
+
 app.get("/picture/:userid", async function (req, res, next) {
   let userid = req.params.userid; // returns user id
   let username = client.users.find((u) => u.id === userid).username; // returns username  this is working
@@ -69,22 +86,4 @@ app.get("/picture/:userid", async function (req, res, next) {
 app.get("/gradient.jpg", (request, response) => {
   response.sendFile(__dirname + "/gradient1.jpg");
 });
-/*
-app.get("/users/:userid/", async function (req, res, next) {
-  userid = req.params.userid; // returns user id
-  username = client.users.find((u) => u.id === userid).username; // returns username  this is working
-  console.log(username);
-  user = req.params.user;
-  disc = req.params.disc;
-  link = `/picture/${userid}`;
 
-  ejs.renderFile(
-    __dirname + "/public/index.ejs",
-    { user, disc, link },
-    (err, str) => {
-      if (err) console.log(err);
-      res.send(str);
-    }
-  );
-});
-*/
