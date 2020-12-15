@@ -339,4 +339,4 @@ You now own :money_with_wings: ${output.balance}`);
   }
       message.channel.stopTyping();
 
-};
+}
