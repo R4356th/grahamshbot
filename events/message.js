@@ -2,15 +2,15 @@ const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 var fs = require("fs");
 var verbs = fs.readFileSync("./verbs.txt").toString().split("\n");
 module.exports = async (client, message) => {
-  const Discord = require("discord.js");
+  
   var randomSentence = require("random-sentence");
   var Sentencer = require("sentencer");
   const SQLite = require("better-sqlite3");
   const sql = new SQLite("./scores.sqlite");
   const eco = require("discord-economy");
-  const canvas = require('discord-canvas')
+  const Canvas = require('discord-canvas')
+  Discord = require("discord.js");
   process.env.FONTCONFIG_PATH='./fonts';
-
   const prefix = "g!";
   const prefixRegex = new RegExp(
     `^(<@!?${client.user.id}>|${escapeRegex(prefix)})\\s*`
@@ -36,6 +36,8 @@ module.exports = async (client, message) => {
       message.reply(
         `You've leveled up to level **${curLevel}**! Ain't that dandy?`
       );
+      const attachment = new Discord.Attachment(`https://grahamshbot.grahamsh.repl.co/picture/${message.author.id}`,'rank.png')
+       message.reply({files: [attachment]});
     }
     client.setScore.run(score);
   }
@@ -81,6 +83,7 @@ module.exports = async (client, message) => {
       "https://uploads.scratch.mit.edu/users/avatars/14542217.png"
     );
   if (message.author != "<@777212456170422272>") {
+        message.channel.startTyping();
     if (command === "say") {
       if (args) {
         message.channel.send(
@@ -113,28 +116,11 @@ module.exports = async (client, message) => {
         )
       );
     } else if (command === "rank") {
-      const image = await new canvas.RankCard()
-      .setAvatar("xixi52")
-      .setXP("current", 500)
-      .setXP("needed", 1000)
-      .setLevel(7)
-      .setRank(2)
-      .setReputation(450)
-      .setRankName("professional")
-      .setUsername(message.author.usermane)
-      .setBadge(1, "gold")
-      .setBadge(3, "diamond")
-      .setBadge(5, "silver")
-      .setBadge(6, "bronze")
-      .setBackground("https://www.site.com/background.jpg")
-      .toAttachment();
-    const attachment = new Discord.MessageAttachment(image.toBuffer(), "rank-card.png");
- 
-    return message.channel.send(attachment);
+      const attachment = new Discord.Attachment(`https://grahamshbot.grahamsh.repl.co/picture/${message.author.id}`,'rank.png')
+       message.reply({files: [attachment]});
 
     } else if (command === "give") {
       // Limited to guild owner - adjust to your own preference!
-      console.log(message.author.id);
       if (
         message.author.id != message.guild.ownerID &&
         message.author.id != 567320070951403531
@@ -345,8 +331,12 @@ You now own :money_with_wings: ${output.balance}`);
       message.reply(`You ${gamble.output}! New balance: ${gamble.newbalance}`);
     } else if (command === "brb") {
       message.channel.send(message.author + " will be right back!");
+    } else if (command === "ranklink") {
+      message.channel.send(`Your link is https://grahamshbot.grahamsh.repl.co/picture/${message.author.id}`);
     } else {
       message.channel.send("Sadly, that's *not* a command.");
     }
   }
+      message.channel.stopTyping();
+
 };
