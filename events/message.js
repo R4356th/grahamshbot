@@ -336,7 +336,7 @@ You now own :money_with_wings: ${output.balance}`);
     } else {
       message.channel.send("Sadly, that's *not* a command.");
     }
-  }
+  } else {
       message.channel.stopTyping();
-
+  }
 }
